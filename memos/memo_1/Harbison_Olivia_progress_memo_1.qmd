@@ -43,9 +43,9 @@ knitr::kable(slice(music, 1:3))
 
 ## Why this data
 
-I chose this dataset because it puts numerical values to music and music popularity. I find it really interesting how they've chosen to operationalize the songs listed, and I'd like to explore this in more depth.
+I chose this dataset because it puts numerical values to music and music popularity. I find it really interesting how they've chosen to operationalize the songs listed, and I'd like to explore this in more depth. I also just thought it would be fun to explore different types of music!
 
-I'm going to explore the question of how to predict what songs were popular.
+I'm going to explore the question of how to predict what songs were popular using a regression prediction model.
 
 ## Data quality & complexity check
 
