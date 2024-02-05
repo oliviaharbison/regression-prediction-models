@@ -51,7 +51,7 @@ I'm going to explore the question of how to predict what songs were popular usin
 
 The data is 160,000 songs and 45 variables. There are 5 character variables, 1 date variable, and 39 numerical variables. These include identifying variables, such as song name and artist. Since the dataset is slightly large, I'm going to cut it down for computational efficiency. After consulting with Professor Sass, I'm going to only use songs released between January 1st, 1980 and December 31st, 2009. This will limit the number of observations to 19,496. 
 
-The target variable is the `popularity` of music. This variable is on a scale from 0 to 100 with 100 being the most popular and 0 being the least. The mean of the variable is 51.5 and the median is 55. The distribution is visually centered around approximately 65 with a left skew, as you can see in the histogram below.
+The target variable is the `popularity` of music. This variable is on a scale from 0 to 100 with 100 being the most popular and 0 being the least. The mean of the variable is 51.5 and the median is 55. The distribution is visually centered around approximately 65 with a left skew, as you can see in the histogram below. Since the histogram is left skewed, I may need to transform it (perhaps squaring it, maybe log).
 
 ```{r}
 #| echo: false
