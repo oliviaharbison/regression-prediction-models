@@ -1,4 +1,7 @@
-## Basic repo setup for final project
+## Music Popularity Predictor
 
-Describe project and general structure of repo ...
+
+## Folders
+- `data`: Contains song data and codebook
+- `memos`: Contains two progress memos written during the project
 

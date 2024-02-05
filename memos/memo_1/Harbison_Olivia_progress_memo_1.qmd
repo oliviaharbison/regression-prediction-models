@@ -1,0 +1,63 @@
+---
+title: "Progress Memo 1"
+subtitle: |
+  | Final Project 
+  | Data Science 2 with R (STAT 301-2)
+author: "Olivia Harbison"
+date: today
+
+format:
+  html:
+    toc: true
+    embed-resources: true
+    
+execute:
+  echo: false
+  warning: false
+
+from: markdown+emoji 
+reference-location: margin
+citation-location: margin
+---
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+[My Github Repo Link](https://github.com/stat301-2-2024-winter/final-project-2-oliviaharbison.git)
+
+:::
+
+## Data source
+
+This dataset used data from a Spotify API that contains information about 160,000 songs. The information includes identifying variables (ex. song title) and numerical data (ex. danceability). There are 5 character variables, 1 date variable, and 39 numerical variables.^[This dataset can be found [here](https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction?select=train.csv) on kaggle.]
+
+## Why this data
+
+I chose this dataset because it puts numerical values to music and music popularity. I find it really interesting how they've chosen to operationalize the songs listed, and I'd like to explore this in more depth.
+
+## Data quality & complexity check
+
+The data is 160,000 songs and 45 variables. There are 5 character variables, 1 date variable, and 39 numerical variables. These include identifying variables, such as song name and artist. Since the dataset is slightly large, I'm going to cut it down for computational efficiency. After consulting with Professor Sass, I'm going to only use songs released between January 1st, 1980 and December 31st, 2009. This will limit the number of observations to 19,496. 
+
+The target variable is the `popularity` of music. This variable is on a scale from 0 to 100 with 100 being the most popular and 0 being the least. The mean of the variable is 51.5 and the median is 55. The distribution is visually centered around approximately 65 with a left skew, as you can see in the histogram below.
+
+```{r}
+#| echo: false
+library(tidyverse)
+load(here::here("data/music.rda"))
+ggplot(music, aes(popularity)) +
+  geom_histogram(bins = 40,
+                 color = "white") +
+  theme_minimal() +
+  labs(
+    x = "Popularity",
+    y = "Count",
+    title = "Distribution of Target Variable (Popularity)",
+    caption = "Source: Kaggle"
+  )
+```
+
+## Potential data issues
+
+There is some slight missingness across variables. The most being missing in 289 observations (1.48%) for several variables. I do not forsee this will be a major issue.
