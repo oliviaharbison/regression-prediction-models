@@ -14,7 +14,11 @@ load(here("data/music_split.rda"))
 
 
 # kitchen sink recipe
-rec_ks <- recipe(popularity ~ ., music_train) 
+rec_ks <- recipe(popularity ~ ., music_train) %>%
+  step_date(release_date) %>%
+  step_rm(release_date) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_naomit(all_predictors())
 
 prep_ks <- rec_ks %>% 
   prep() %>% 

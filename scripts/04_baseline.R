@@ -38,6 +38,6 @@ null_fit <- null_workflow |>
 
 
 # save
-#save(null_fit, file = here("results/null_fit.rda"))
+save(null_fit, file = here("results/null_fit.rda"))
 
 
