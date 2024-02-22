@@ -11,7 +11,8 @@ music_pop <- read_csv(here("data/music popularity.csv")) %>%
   mutate(release_date = as.Date(release_date))
 
 music <- music_pop %>%
-  filter(between(release_date, as.Date('1980-01-01'), as.Date('2009-12-31')))
+  filter(between(release_date, as.Date('1980-01-01'), as.Date('2009-12-31'))) %>%
+  select(-id, -name, -artists, -starts_with("t_name"))
 
 skimr::skim(music)
 

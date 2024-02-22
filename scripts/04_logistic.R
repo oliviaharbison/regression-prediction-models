@@ -1,5 +1,5 @@
 # Music Popularity Predictor
-# LogisticModel
+# Logistic Model
 
 # packages
 library(tidyverse)
@@ -11,3 +11,24 @@ tidymodels_prefer()
 doMC::registerDoMC(cores = parallel::detectCores(logical = TRUE))
 
 # data
+load(here("data/music_split.rda"))
+load(here("data/rec_ks.rda"))
+
+
+### model specifications ---
+lm_spec <- 
+  linear_reg() %>%
+  set_engine("lm")
+
+### define workflows ---
+lm_wflow <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_recipe(rec_ks)
+
+### fit workflows/models ---
+lm_fit <- fit_resamples(lm_wflow, 
+                        resamples = music_folds)
+
+### write out results (fitted/trained workflows) ---
+save(lm_fit, file = here("results/lm_fit.rda"))
+

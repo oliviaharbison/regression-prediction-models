@@ -37,18 +37,25 @@ This dataset used data from a Spotify API that contains information about 160,00
 
 For my data analysis, I'm going to split the data into training and testing groups. The training group will be 80% of the data, which is 15,594 observations. The testing group will be the remaining 20%, which is 3,902. This split will be stratified by the target variable (`popularity`). Furthermore, I will implement resampling via v-fold cross validation. For this, I will use 5 folds and 3 repeats because the dataset is quite large and my computer may not be able to handle much more. 
 
-Once I've split and folded the data, I will generate recipes and models. I will use two recipes. One will be a "kitchen sink recipe," in which I use all of the possible predictor variables. The other will be more nuanced and based off of my data analysis and exploration. This recipe will include relevant interaction terms, necessary transformations, variable normalization, and more. 
+Once I've split and folded the data, I will generate recipes and models. I will use at least two recipes. One will be a "kitchen sink recipe," in which I use all of the possible predictor variables. The other will be more nuanced and based off of my data analysis and exploration. This recipe will include relevant interaction terms, necessary transformations, variable normalization, and more. 
 
-
-an analysis plan: data splitting, resampling (cross-validation, bootstrap, etc), which model types, how many recipes, etc. Note that students should have this mapped out in their GitHub repo. That is, there should be place holder R scripts created. You don't have to have everything coded, but the overall structure should be evident.   
+I will then create 6 models of the following types: null (baseline), boosted tree, elastic net, k nearest neighbor, logistic, and random forest. I will run each on each of the two models (except for the null model which I will only run on the kitchen sink recipe). I will assess which of these models is the best fit based on the $R^2$ metric.
 
 
 ## Fitted Models
 
-Two model types should be defined and fitted to the resamples: null/baseline model and one other model type (likely standard linear or logistic model):
-The recipe can be very basic since we just want to see if you can get things running
+I've fitted two models to the resamples using a basic "kitchen sink" recipe. One of these models is a null model, and it is my baseline model for this project. The other model is a logistic model. As discussed above, I'm going to be using four more models and at least one more recipe as well. Below in @tbl-models, you can see each model's $R^2$ value.
+
 
 
 ## Progress Update
 
 Students should summarize their progress, where they are at, and what their next steps will be. Identifying and potential issues or concerns would be a good idea too.
+
+
+
+
+
+
+
+
