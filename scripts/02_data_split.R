@@ -31,4 +31,4 @@ music_folds <-
            strata = popularity)
 
 # save
-#save(music_folds, music_split, music_train, music_test, file = here("data/music_split.rda"))
+save(music_folds, music_split, music_train, music_test, file = here("data/music_split.rda"))

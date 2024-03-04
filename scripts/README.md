@@ -9,6 +9,6 @@
 - `04_bt.R`: Contains the specifications, workflow, any necessary tuning, and fit for the boosted tree model. 
 - `04_elastic_net.R`: Contains the specifications, workflow, any necessary tuning, and fit for the elastic net model. 
 - `04_knn.R`: Contains the specifications, workflow, any necessary tuning, and fit for the K nearest neighbors model.
-- `04_logistic.R`: Contains the specifications, workflow, any necessary tuning, and fit for the logistic model. 
+- `04_lm.R`: Contains the specifications, workflow, any necessary tuning, and fit for the linear model. 
 - `04_rf.R`: Contains the specifications, workflow, any necessary tuning, and fit for the random forest model. 
 - `05_assessment_mets.R`: Contains the assessment metrics for each of the models above.

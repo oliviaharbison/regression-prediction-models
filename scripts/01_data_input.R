@@ -8,7 +8,13 @@ library(here)
 
 # data
 music_pop <- read_csv(here("data/music popularity.csv")) %>%
-  mutate(release_date = as.Date(release_date))
+  mutate(release_date = as.Date(release_date),
+         t_mode0 = as.factor(t_mode0),
+         t_mode1 = as.factor(t_mode1),
+         t_mode2 = as.factor(t_mode2),
+         t_sig0 = as.factor(t_sig0),
+         t_sig1 = as.factor(t_sig1),
+         t_sig2 = as.factor(t_sig2))
 
 music <- music_pop %>%
   filter(between(release_date, as.Date('1980-01-01'), as.Date('2009-12-31'))) %>%
@@ -16,7 +22,7 @@ music <- music_pop %>%
 
 skimr::skim(music)
 
-#save(music, file = here("data/music.rda"))
+save(music, file = here("data/music.rda"))
 
 naniar::miss_var_summary(music) %>% arrange(-pct_miss) 
 

@@ -3,5 +3,5 @@
 
 ## Files
 - `null_fit.rda`: Fit for the null model
-- `lm_fit.rda`: Fit for the logistic model
+- `lm_fit.rda`: Fit for the linear model
 
