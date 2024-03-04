@@ -42,7 +42,9 @@ h(data$t_live0) #log
 
 corrplot::corrplot(cor(na.omit(data)))
 
+hist(log(data$t_energy0, base = .5))
 
+hist(1/(data$t_speech0))
 
 # MISSING DATA:
 
