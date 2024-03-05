@@ -50,7 +50,7 @@ hist(1/(data$t_speech0))
 
 gg_miss_var(data)
 
-# there is some but not crazy
+# there is no missing data 
 
 # natural splines
 ggplot(data, aes(x = log(t_dur0), y = popularity)) + 
