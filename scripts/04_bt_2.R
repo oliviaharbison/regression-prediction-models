@@ -33,7 +33,7 @@ bt_workflow <- workflow() %>%
 bt_params <- extract_parameter_set_dials(bt_spec) %>%
   update(mtry = mtry(range = c(1, 33)))
 
-bt_grid <- grid_regular(bt_params, levels = 5)
+bt_grid <- grid_regular(bt_params, levels = 15)
 
 
 # fit workflows/models ----
@@ -43,3 +43,6 @@ bt_tuned_2 <- tune_grid(bt_workflow,
                       control = control_grid(save_workflow = TRUE))
 
 save(bt_tuned_2, file = here("results/bt_tuned_2.rda"))
+
+
+
