@@ -48,7 +48,7 @@ elastic_mets_2 <- collect_metrics(elastic_tuned_2) %>%
 ## Combined Table ----
 
 rmse_tbl <- tibble(
-  Model = c("Null", "Logistic", "KS Boosted Tree", "Adv Rec Boosted Tree", "KS Elastic Net", "Adv Rec Elastic Net"),
+  Model = c("Null", "Linear", "KS Boosted Tree", "Adv Rec Boosted Tree", "KS Elastic Net", "Adv Rec Elastic Net"),
   RMSE = c(null_mets %>% filter(.metric == "rmse") %>% pull(mean), 
            lm_mets %>% filter(.metric == "rmse") %>% pull(mean),
            bt_mets %>% pull(mean),
