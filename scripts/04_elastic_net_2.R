@@ -28,7 +28,8 @@ elastic_workflow <- workflow() %>%
 # hyperparameter tuning values ----
 elastic_params <- extract_parameter_set_dials(elastic_spec)
 
-elastic_grid <- grid_regular(elastic_params, levels = 8)
+elastic_grid <- grid_regular(elastic_params, levels = c(penalty = 20,
+                                                        mixture = 25))
 
 
 # fit workflows/models ----
@@ -38,3 +39,6 @@ elastic_tuned_2 <- tune_grid(elastic_workflow,
                            control = control_grid(save_workflow = TRUE))
 
 save(elastic_tuned_2, file = here("results/elastic_tuned_2.rda"))
+
+load(here("results/elastic_tuned_2.rda"))
+autoplot(elastic_tuned_2)

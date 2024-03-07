@@ -24,7 +24,8 @@ knn_workflow <- workflow() %>%
   add_recipe(rec_2)
 
 # hyperparameter tuning values ----
-knn_params <- extract_parameter_set_dials(knn_spec) 
+knn_params <- extract_parameter_set_dials(knn_spec) %>%
+  update(neighbors = neighbors(range = c(1, 10)))
 
 knn_grid <- grid_regular(knn_params, levels = 9)
 
@@ -36,3 +37,7 @@ knn_tuned_2 <- tune_grid(knn_workflow,
 
 # write out results (fitted/trained workflows) ----
 save(knn_tuned_2, file = here("results/knn_tuned_2.rda"))
+
+
+load(here("results/knn_tuned_2.rda"))
+autoplot(knn_tuned_2)
