@@ -45,11 +45,15 @@ save(final_mets, file = here("results/final_mets.rda"))
 
 # plot ----
 results_plot <- ggplot(final_preds, aes(x = popularity, y = .pred)) +
-  geom_abline(lty = 2) +
-  geom_point(alpha = 0.5) +
-  labs(y = "Predicted Popularity", x = "Actual Popularity") +
+  geom_abline(lty = 5, color = "blue", linewidth = 1.25) +
+  geom_point(alpha = 0.25) +
+  labs(y = "Predicted Popularity", x = "Actual Popularity",
+       title = "Performance on testing set.",
+       subtitle = "KS Random Forest Model Predictions vs Truth",
+       caption = "Data source: Kaggle") +
   coord_obs_pred() +
   theme_minimal()
+results_plot
 
 # save
 save(results_plot, file = here("results/results_plot.rda"))
