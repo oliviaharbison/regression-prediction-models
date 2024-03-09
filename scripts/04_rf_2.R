@@ -18,7 +18,7 @@ load(here("data/rec_2_tree.rda"))
 rf_spec <-
   rand_forest(
     mode = "regression",
-    trees = 1000,
+    trees = 500,
     min_n = tune(),
     mtry = tune()
   ) %>%
@@ -31,17 +31,17 @@ rf_workflow <- workflow() %>%
 
 # hyperparameter tuning values ----
 rf_params <- extract_parameter_set_dials(rf_spec) %>%
-  update(mtry = mtry(range = c(1, 10)))
+  update(mtry = mtry(range = c(8, 15)))
 
-rf_grid <- grid_regular(rf_params, levels = 13)
+rf_grid <- grid_regular(rf_params, levels = 5)
 
 
 # fit workflows/models ----
-rf_tuned <- tune_grid(rf_workflow,
+rf_tuned_2 <- tune_grid(rf_workflow,
                       music_folds,
                       grid = rf_grid,
                       control = control_grid(save_workflow = TRUE))
 
 
 # write out results (fitted/trained workflows) ----
-save(rf_tuned, file = here("results/rf_tuned.rda"))
+save(rf_tuned_2, file = here("results/rf_tuned_2.rda"))

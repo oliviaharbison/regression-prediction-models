@@ -24,7 +24,7 @@ load(here("results/knn_tuned.rda"))
 load(here("results/knn_tuned_2.rda"))
 load(here("results/rf_tuned.rda"))
 load(here("results/rf_tuned_2.rda"))
-
+load(here("results/elastic_tuned_3.rda"))
 
 ## Null Model ----
 null_mets <- collect_metrics(null_fit)
@@ -74,7 +74,7 @@ rf_mets_2 <- collect_metrics(rf_tuned_2) %>%
 
 ## Combined Table ----
 
-rmse_tbl <- tibble(
+rmse_table <- tibble(
   Model = c(
     "KS Null",
     "Adv Rec Null",
@@ -107,7 +107,7 @@ rmse_tbl <- tibble(
 
 
 # save
-save(rmse_tbl, file = here("results/rmse_tbl.rda"))
+save(rmse_table, file = here("results/rmse_table.rda"))
 
 
 

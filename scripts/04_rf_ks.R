@@ -18,7 +18,7 @@ load(here("data/rec_ks_tree.rda"))
 rf_spec <-
   rand_forest(
     mode = "regression",
-    trees = 1000,
+    trees = 500,
     min_n = tune(),
     mtry = tune()
   ) %>%
@@ -31,9 +31,9 @@ rf_workflow <- workflow() %>%
 
 # hyperparameter tuning values ----
 rf_params <- extract_parameter_set_dials(rf_spec) %>%
-  update(mtry = mtry(range = c(1, 10)))
+  update(mtry = mtry(range = c(8, 15)))
 
-rf_grid <- grid_regular(rf_params, levels = 13)
+rf_grid <- grid_regular(rf_params, levels = 5)
 
 
 # fit workflows/models ----
@@ -45,6 +45,3 @@ rf_tuned <- tune_grid(rf_workflow,
 
 # write out results (fitted/trained workflows) ----
 save(rf_tuned, file = here("results/rf_tuned.rda"))
-
-load(here("results/rf_tuned.rda"))
-autoplot(rf_tuned)

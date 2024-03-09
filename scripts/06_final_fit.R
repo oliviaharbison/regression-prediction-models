@@ -12,7 +12,7 @@ doMC::registerDoMC(cores = parallel::detectCores(logical = TRUE))
 
 # data
 load(here("data/music_split.rda"))
-
+load(here("results/rf_tuned.rda"))
 
 # finalize workflow ---
 final_wflow <- bt_tuned %>%
