@@ -15,12 +15,12 @@ load(here("data/music_split.rda"))
 load(here("results/rf_tuned.rda"))
 
 # finalize workflow ---
-final_wflow <- bt_tuned %>%
-  extract_workflow(bt_tuned) %>%  
-  finalize_workflow(select_best(bt_tuned, metric = "rmse"))
+final_wflow <- rf_tuned %>%
+  extract_workflow(rf_tuned) %>%  
+  finalize_workflow(select_best(rf_tuned, metric = "rmse"))
 
 # train final model ---
-final_fit <- fit(final_wflow, car_train)
+final_fit <- fit(final_wflow, music_train)
 
 # save
 save(final_fit, file = here("results/final_fit.rda"))
@@ -29,27 +29,27 @@ save(final_fit, file = here("results/final_fit.rda"))
 #After fitting/training the best model in the last task, assess the model's 
 #performance on the test set
 
-final_preds <- car_test %>%
-  select(sales) %>%
-  bind_cols(predict(final_fit, car_test))
+final_preds <- music_test %>%
+  select(popularity) %>%
+  bind_cols(predict(final_fit, music_test))
 
 metrics <- metric_set(rmse, mae, rsq)
 
-final_mets <- metrics(final_preds, truth = sales, estimate = .pred)
+final_mets <- metrics(final_preds, truth = popularity, estimate = .pred)
 
 # save
 save(final_mets, file = here("results/final_mets.rda"))
 
-# task 12 ----
-plot <- ggplot(final_preds, aes(x = sales, y = .pred)) +
+# plot
+results_plot <- ggplot(final_preds, aes(x = popularity, y = .pred)) +
   geom_abline(lty = 2) +
   geom_point(alpha = 0.7) +
-  labs(y = "Predicted Sales", x = "Sales") +
+  labs(y = "Predicted Popularity", x = "Actual Popularity") +
   coord_obs_pred() +
   theme_minimal()
 
 # save
-save(plot, file = here("results/plot.rda"))
+save(results_plot, file = here("results/results_plot.rda"))
 
 
 
