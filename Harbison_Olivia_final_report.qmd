@@ -41,9 +41,12 @@ Although I personally have no interest in becoming a pop star, I love listening 
 
 
 ## Data Overview
-At minimum the response variable should be explored and analyzed in detail. Along with an inspection of the data for missingness and severe class imbalance of categorical data. The previous analyses should be conducted on the entire dataset.
+The full dataset used here is 160,000 albums from 1917 to 2021, with the marjority having been released in the last 40 years. For computational efficiency, I'm going to use only albums released between 1980 and 2010. Furthermore, I removed all albums containing fewer than three songs, because I feel they should not be classified as albums. Once these changes were made, the dataset was left with 19,184 observations. 
 
-Further exploration such as exploring relationships and transformations should be conducted on either a standalone dataset used only for an EDA or some portion of the training dataset from the initial split (can put it back into the training set when building models). Data from the final testing dataset (performance dataset) should not be used for this. This is a key step in feature engineering. A thorough Exploratory Data Analysis might be called for, especially if the data is completely new to you, but make sure it is not completed on the entire dataset! Such an EDA could be put in an appendix and only a short summary could be discussed in this section.
+The slimmed down dataset had 39 variables, of which 32 were numerical, 6 were categorical, and 1 was the release date. There was no missingness present, but there were some imbalanced variables that were dealt with in the advanced recipe below. An exploratory data analysis was conducted to explore variable imbalance and relationships between variables. More information can be found below in the appendix. 
+
+The target variable in this set of regression models is the popularity of the album. This was scored on a scale of 1 to 100, with 100 being very popular and 1 being not popular. The variable did not need to be transformed. Furthermore, possible relationships between the target variable and predictor variables were explored but no clear relationships were found. There was a slight relationship between popularity and energy level, but not major enough to make any adjustments.
+
 
 ## Methods
 Should cover the data splitting procedure and clearly identify what type of prediction problem it is. State and describe the model types you will be fitting. Describe any parameters that will be tuned. Describe what recipes will be used. Describe the resampling technique used. In some cases an extended discussion about recipe variations might be useful. Especially if students are using recipe variation to try and explore the predictive importance of certain variables. Explain the metric that will be used to compare and ultimately used to select a final model.
@@ -58,7 +61,7 @@ This is where you fit your final/winning model to the testing data. Assess the f
 State any conclusions or discoveries/insights. This is a great place for future work, new research questions, and next steps.
 
 ## References
-Agarwal, M., & Elemento. (2022). Music Albums Popularity Prediction. Kaggle. https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction?select=train.csv
+Agarwal, M., & Elemento. (2022). Music Albums Popularity Prediction. Kaggle. [https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction](https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction)
 
 
 ### Appendix: technical info — if needed
@@ -66,6 +69,9 @@ A place to share complex and important technical steps that may highly impact ex
 
 ### Appendix: EDA — if needed
 A place to place a more thorough EDA, if needed. This should not include any data from the testing dataset!
+
+- put some of the skewed histograms in here
+- put something demonstrating the relationships put into the interaction terms
 
 ### Appendix: extras — if needed
 Add as many appendices as needed.

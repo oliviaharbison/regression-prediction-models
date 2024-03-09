@@ -40,7 +40,11 @@ h(data$t_speech0) #1/x
 h(data$t_energy0) #sqrt(1-x)
 h(data$t_live0) #log
 
-corrplot::corrplot(cor(data))
+data %>%
+  select(where(is.numeric)) %>%
+  cor() %>%
+  corrplot::corrplot()
+
 
 hist(log(data$t_energy0, base = .5))
 

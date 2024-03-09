@@ -3046,8 +3046,9 @@ Data Science 2 with R (STAT 301-2)</p><p></p>
 </section>
 <section id="data-overview" class="level2">
 <h2 class="anchored" data-anchor-id="data-overview">Data Overview</h2>
-<p>At minimum the response variable should be explored and analyzed in detail. Along with an inspection of the data for missingness and severe class imbalance of categorical data. The previous analyses should be conducted on the entire dataset.</p>
-<p>Further exploration such as exploring relationships and transformations should be conducted on either a standalone dataset used only for an EDA or some portion of the training dataset from the initial split (can put it back into the training set when building models). Data from the final testing dataset (performance dataset) should not be used for this. This is a key step in feature engineering. A thorough Exploratory Data Analysis might be called for, especially if the data is completely new to you, but make sure it is not completed on the entire dataset! Such an EDA could be put in an appendix and only a short summary could be discussed in this section.</p>
+<p>The full dataset used here is 160,000 albums from 1917 to 2021, with the marjority having been released in the last 40 years. For computational efficiency, I’m going to use only albums released between 1980 and 2010. Furthermore, I removed all albums containing fewer than three songs, because I feel they should not be classified as albums. Once these changes were made, the dataset was left with 19,184 observations.</p>
+<p>The slimmed down dataset had 39 variables, of which 32 were numerical, 6 were categorical, and 1 was the release date. There was no missingness present, but there were some imbalanced variables that were dealt with in the advanced recipe below. An exploratory data analysis was conducted to explore variable imbalance and relationships between variables. More information can be found below in the appendix.</p>
+<p>The target variable in this set of regression models is the popularity of the album. This was scored on a scale of 1 to 100, with 100 being very popular and 1 being not popular. The variable did not need to be transformed. Furthermore, possible relationships between the target variable and predictor variables were explored but no clear relationships were found. There was a slight relationship between popularity and energy level, but not major enough to make any adjustments.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -3067,7 +3068,7 @@ Data Science 2 with R (STAT 301-2)</p><p></p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<p>Agarwal, M., &amp; Elemento. (2022). Music Albums Popularity Prediction. Kaggle. https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction?select=train.csv</p>
+<p>Agarwal, M., &amp; Elemento. (2022). Music Albums Popularity Prediction. Kaggle. <a href="https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction">https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction</a></p>
 <section id="appendix-technical-info-if-needed" class="level3">
 <h3 class="anchored" data-anchor-id="appendix-technical-info-if-needed">Appendix: technical info — if needed</h3>
 <p>A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.</p>
@@ -3075,6 +3076,10 @@ Data Science 2 with R (STAT 301-2)</p><p></p>
 <section id="appendix-eda-if-needed" class="level3">
 <h3 class="anchored" data-anchor-id="appendix-eda-if-needed">Appendix: EDA — if needed</h3>
 <p>A place to place a more thorough EDA, if needed. This should not include any data from the testing dataset!</p>
+<ul>
+<li>put some of the skewed histograms in here</li>
+<li>put something demonstrating the relationships put into the interaction terms</li>
+</ul>
 </section>
 <section id="appendix-extras-if-needed" class="level3">
 <h3 class="anchored" data-anchor-id="appendix-extras-if-needed">Appendix: extras — if needed</h3>

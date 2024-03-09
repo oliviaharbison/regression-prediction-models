@@ -4,6 +4,7 @@
 # packages
 library(tidyverse)
 library(here)
+library(skimr)
 
 
 # data
@@ -22,7 +23,7 @@ music <- music_pop %>%
   filter(between(release_date, as.Date('1980-01-01'), as.Date('2009-12-31'))) %>%
   select(-id, -name, -artists, -starts_with("t_name"))
 
-skimr::skim(music)
+
 
 # save 
 
