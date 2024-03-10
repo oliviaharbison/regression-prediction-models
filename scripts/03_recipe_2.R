@@ -50,8 +50,7 @@ save(rec_2, file = here("data/rec_2.rda"))
 rec_2_tree <- recipe(popularity ~ ., music_train) %>%
   step_dummy(all_nominal_predictors(), one_hot = TRUE) %>%
   step_rm(release_date) %>%
-  step_log(t_dur0, t_dur1, t_dur2, t_live0, t_live1, t_live2, offset = 0.0000000000001) %>%
-  step_log(total_tracks, t_speech0, t_speech1, t_speech2, base = 10, offset = 0.0000000000001) %>%
+  step_BoxCox(all_numeric_predictors())
   step_nzv(all_predictors()) %>%
   step_zv(all_predictors()) %>%
   step_normalize(all_predictors())

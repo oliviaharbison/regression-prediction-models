@@ -12,7 +12,7 @@ doMC::registerDoMC(cores = parallel::detectCores(logical = TRUE))
 
 # data
 load(here("data/music_split.rda"))
-load(here("data/rec_2.rda"))
+load(here("data/rec_2_tree.rda"))
 
 # model specifications ----
 bt_spec <-
@@ -27,7 +27,7 @@ bt_spec <-
 # define workflows ----
 bt_workflow <- workflow() %>%
   add_model(bt_spec) %>%
-  add_recipe(rec_2)
+  add_recipe(rec_2_tree)
 
 # hyperparameter tuning values ----
 bt_params <- extract_parameter_set_dials(bt_spec) %>%

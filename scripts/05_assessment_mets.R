@@ -24,7 +24,7 @@ load(here("results/knn_tuned.rda"))
 load(here("results/knn_tuned_2.rda"))
 load(here("results/rf_tuned.rda"))
 load(here("results/rf_tuned_2.rda"))
-load(here("results/elastic_tuned_3.rda"))
+
 
 ## Null Model ----
 null_mets <- collect_metrics(null_fit)
