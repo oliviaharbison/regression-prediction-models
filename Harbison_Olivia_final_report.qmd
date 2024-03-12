@@ -61,23 +61,51 @@ The second recipe, which I will call the *advanced* recipe, contains every predi
 
 ## Model Building & Selection Results
 
-When building the models used in this project, I tuned all appropriate parameters based on balancing the datasets unique needs and my computer's computational power. The parameters tuned were mtry, min_n and learn_rate for the boosted tree model. For the random forest model mtry and min_n were tuned. For the elastic net model the parameters tuned were penalty and mixture. Finally, for the k nearest neighbor model the neighbors parameter was tuned. For details of how each of the parameters were tuned, please see the appendix.
+When building the models used in this project, I tuned all appropriate parameters based on balancing the dataset's unique needs and my computer's computational power. The parameters tuned were mtry, min_n and learn_rate for the boosted tree model. For the random forest model mtry and min_n were tuned. For the elastic net model the parameters tuned were penalty and mixture. Finally, for the k nearest neighbor model the neighbors parameter was tuned. For details of how each of the parameters were tuned and which parameters were best for each model, please see the appendix.
+
+To choose which model and recipe combination is the best, I decided to use the RMSE metric to compare them. I chose this metric because of its harshness to outliers and the simplicity of being able to easily compare between models. As you can see below in @tbl-rmse, the models that use the *kitchen sink* recipe are labeled "KS" and the models that use the *advanced* recipe are labeled "Adv Rec". The model with the lowest and best RMSE value is the KS Random Forest model. 
+
+```{r}
+#| label: tbl-rmse
+#| echo: false
+#| tbl-cap: RMSE Values by Model
 
 
+load(here("results/rmse_table.rda"))
+knitr::kable(rmse_table)
+```
 
-- results table
-      Should reiterate the metric that will be used to compare models and determine which will be
-      the final/winning model. Include a table of the best performing model results.  This would 
-      be a good section to describe what the best parameters were for each model type.
-      Could include a discussion comparing any systematic differences in performance between 
-      model types or recipes. 
-- final model selection
-      which one won, was it surprising
+The two random forest models were the best performing models, which demonstrates this model type is highly accurate for this kind of data. Next, the KNN and boosted tree models performed fairly similarly to each other and not much more poorly than the random forest models. These performed much better than the elastic net, linear, and null models. It's not surprising that one of the random forest models performed the best, because random forests tend to have high accuracy (at the cost of high computational need). This led me to hypothesize that either a random forest model or a boosted tree model would be the best. On the other hand, it was surprising to see that the *kitchen sink* recipe and the *advanced* recipe played almost no difference in the random forest model results. I expected the *advanced* recipe to produce better results, as it did in most of the other models. However, it also did not make a difference for the boosted tree model. Upon further reflection, I think this actually makes sense because the tree model recipe did not have an impact because there were no interaction terms in it, which likely caused an effect in the other models. Furthermore it is characteristic of tree models to be less influenced by a recipe and more just focused on the trees. Additionally, tree based models are more naturally able to adjust to irregular data, so the normalization and transformations also didn't play a big role.
 
 
 ## Final Model Analysis
 
-This is where you fit your final/winning model to the testing data. Assess the final model’s performance with at least the metric used to determine the winning model, but it is also advisable to use other performance metrics (especially ones that might be easier to communicate/understand). Should include an exploration of predictions vs the true values (graph) or a confusion matrix (table). Remember to consider the scale of your outcome variable at this time — did you transform the target variable? If a transformation was used, then you should consider conducting analyses on both the original and transformed scale of the target variable. Is the model any good? It might be the best of the models you tried, but does the effort of building a predictive model really pay off — is it that much better than a baseline/null model? Were there any features of the model you selected that make it the best (e.g. fits nonlinearity well)?
+The final model is going to be the *kitchen sink* random forest model because this model performed the best during testing. The assessment metrics for this model when fit on the testing data can be seen in @tbl-final-mets. As we can see, the RMSE here is even lower than it was when fit on the training data, which is a sign of a well fit model! Additionally, the MAE is fairly low at 4.327 and the R squared is fairly high at 0.76. Although this model is not perfect, it performs quite well considering it is modeling something so complex as music popularity.
+
+```{r}
+#| label: tbl-final-mets
+#| tbl-cap: Metrics for Final Model
+#| echo: false
+
+load(here("results/final_mets.rda"))
+
+knitr::kable(final_mets)
+```
+
+
+Furthermore, this model performs significantly better than the baseline models, which had RMSE values around 17. This shows there can be strong pay off of building more complex models, particularly when more accurate predictions are needed. We can see below in @fig-preds, the relationship between the final model's predictions and the actual popularity.
+
+```{r}
+#| label: fig-preds
+#| fig-cap: Predicted vs actual popularity
+#| echo: false
+
+load(here("results/results_plot.rda"))
+results_plot
+```
+
+
+Should include an exploration of predictions vs the true values (graph) Is the model any good? It might be the best of the models you tried, but does the effort of building a predictive model really pay off — is it that much better than a baseline/null model? Were there any features of the model you selected that make it the best (e.g. fits nonlinearity well)?
 
 ## Conclusion
 
@@ -89,7 +117,9 @@ Agarwal, M., & Elemento. (2022). Music Albums Popularity Prediction. Kaggle. <ht
 
 ### Appendix: Tuning Parameters
 
-A place to share complex and important technical steps that may highly impact explorations, but the details are too technical to share in main body of the report.
+details of what was tuned & how, some autoplots
+
+then details of the best parameters for each model (show_best)
 
 ### Appendix: EDA
 

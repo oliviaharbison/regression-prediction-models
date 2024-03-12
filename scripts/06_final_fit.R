@@ -13,7 +13,7 @@ doMC::registerDoMC(cores = parallel::detectCores(logical = TRUE))
 # data
 load(here("data/music_split.rda"))
 load(here("results/rf_tuned.rda"))
-load(here("results/rf_tuned_2.rda"))
+
 
 # finalize workflow ---
 final_wflow <- rf_tuned %>%
@@ -36,7 +36,10 @@ final_preds <- music_test %>%
 
 metrics <- metric_set(rmse, mae, rsq)
 
-final_mets <- metrics(final_preds, truth = popularity, estimate = .pred)
+final_mets <- metrics(final_preds, truth = popularity, estimate = .pred) %>%
+  select(-.estimator,
+         Metric = .metric,
+         Estimate = .estimate)
 
 # save
 save(final_preds, file = here("results/final_preds.rda"))
@@ -57,8 +60,5 @@ results_plot
 
 # save
 save(results_plot, file = here("results/results_plot.rda"))
-
-
-
 
 
