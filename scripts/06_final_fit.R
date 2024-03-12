@@ -51,7 +51,7 @@ results_plot <- ggplot(final_preds, aes(x = popularity, y = .pred)) +
   geom_abline(lty = 5, color = "blue", linewidth = 1.25) +
   geom_point(alpha = 0.25) +
   labs(y = "Predicted Popularity", x = "Actual Popularity",
-       title = "Performance on testing set.",
+       title = "Performance on testing set",
        subtitle = "KS Random Forest Model Predictions vs Truth",
        caption = "Data source: Kaggle") +
   coord_obs_pred() +

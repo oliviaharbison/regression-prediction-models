@@ -25,6 +25,7 @@ citation-location: margin
 library(tidyverse)
 library(tidymodels)
 library(here)
+library(patchwork)
 
 tidymodels_prefer()
 set.seed(80)
@@ -44,7 +45,7 @@ Although I personally have no interest in becoming a pop star, I love listening 
 
 The full dataset used here is 160,000 albums from 1917 to 2021, with the marjority having been released in the last 40 years. For computational efficiency, I'm going to use only albums released between 1980 and 2010. Furthermore, I removed all albums containing fewer than three songs, because I feel they should not be classified as albums. Once these changes were made, the dataset was left with 19,184 observations.
 
-The slimmed down dataset had 39 variables, of which 32 were numerical, 6 were categorical, and 1 was the release date. There was no missingness present, but there were some imbalanced variables that were dealt with in the advanced recipe below. An exploratory data analysis was conducted to explore variable imbalance and relationships between variables. More information can be found below in the appendix.
+The slimmed down dataset had 39 variables, of which 32 were numerical, 6 were categorical, and 1 was the release date. There was no missingness present, but there were some imbalanced variables that were dealt with in the advanced recipe below. An exploratory data analysis was conducted to explore variable imbalance and relationships between variables.
 
 The target variable in this set of regression models is the popularity of the album. This was scored on a scale of 1 to 100, with 100 being very popular and 1 being not popular. The variable did not need to be transformed. Furthermore, possible relationships between the target variable and predictor variables were explored but no clear relationships were found. There was a slight relationship between popularity and energy level, but not major enough to make any adjustments.
 
@@ -104,12 +105,12 @@ load(here("results/results_plot.rda"))
 results_plot
 ```
 
+As you can see in @fig-preds, most of the model's errors were by predicting albums would be more popular than they were. This is a very understandable error because the people who create music are likely also looking at these data and trying to make songs that fit with the data-driven explanation of popularity. However, it's very difficult to make your song be popular, even if you're following the data trends. I think it's interesting to point out how the highly popular albums were mostly very accurately predicted by the model. This shows that the model was able to parse out patterns and trends related to popular music.
 
-Should include an exploration of predictions vs the true values (graph) Is the model any good? It might be the best of the models you tried, but does the effort of building a predictive model really pay off — is it that much better than a baseline/null model? Were there any features of the model you selected that make it the best (e.g. fits nonlinearity well)?
 
 ## Conclusion
 
-State any conclusions or discoveries/insights. This is a great place for future work, new research questions, and next steps.
+Overall, music is a very subjective art that realistically cannot (and maybe should not) be reduced to numbers on a screen. Despite this, I found it to be very interesting to explore the patterns in popular music. I think this research could move more into the psychology and cognitive science realm to dive into *why* people tend to like certain music and dislike others. Is this an output of collective cognition in a social world? Or are there universal patterns in what fundamentally sounds "good" and what does not?
 
 ## References
 
@@ -117,17 +118,149 @@ Agarwal, M., & Elemento. (2022). Music Albums Popularity Prediction. Kaggle. <ht
 
 ### Appendix: Tuning Parameters
 
-details of what was tuned & how, some autoplots
+The tuning parameters for the models were selected by balancing the data's need with the abilities of my computer. For your reference, I've compiled the tuning parameters, plots of their trials, and the parameters that were the best after fitting. This is displayed below in tables that include the parameters, their chosen values, the number of levels, and the best values (which were used for comparison between models). Each model was tuned in the same way, regardless of recipe, to ensure that the recipe was the only dependent variable in the comparison.
 
-then details of the best parameters for each model (show_best)
+**Boosted Tree:**
+```{r}
+#| label: tbl-bt
+#| tbl-cap: Boosted Tree Tuning Parameters
+#| echo: false
 
-### Appendix: EDA
+knitr::kable(tibble(
+  Parameter = c("mtry", "min_n", "learn_rate"),
+  `Tuning Value` = c("1, 33", "2, 40", "-10, 5"),
+  Levels = c(15, 15, 15),
+  `KS Best Value` = c(28, 2, 0.44),
+  `Adv Rec Best Value` = c(28, 2, 0.44)
+))
+```
 
-A place to place a more thorough EDA, if needed. This should not include any data from the testing dataset!
+```{r}
+#| label: fig-bt-1
+#| fig-cap: KS Boosted Tree
+#| echo: false
+load(here("results/bt_tuned.rda"))
+load(here("results/bt_tuned_2.rda"))
 
--   put some of the skewed histograms in here
--   put something demonstrating the relationships put into the interaction terms
+autoplot(bt_tuned)
 
-### Appendix: extras — if needed
+```
 
-Add as many appendices as needed.
+```{r}
+#| label: fig-bt-2
+#| fig-cap: Adv Rec Boosted Tree
+#| echo: false
+
+autoplot(bt_tuned_2)
+
+```
+
+**Elastic Net:**
+```{r}
+#| label: tbl-en
+#| tbl-cap: Elastic Net Tuning Parameters
+#| echo: false
+
+knitr::kable(tibble(
+  Parameter = c("penalty", "mixture"),
+  `Tuning Value` = c("-10, 0", "0, 1"),
+  Levels = c(20, 25),
+  `KS Best Value` = c(0.0264, 0.05),
+  `Adv Rec Best Value` = c(0.0078, 0.37)
+))
+```
+
+```{r}
+#| label: fig-en-1
+#| fig-cap: KS Elastic Net
+#| echo: false
+load(here("results/elastic_tuned.rda"))
+load(here("results/elastic_tuned_2.rda"))
+
+autoplot(elastic_tuned)
+
+
+```
+
+```{r}
+#| label: fig-en-2
+#| fig-cap: Adv Rec Elastic Net
+#| echo: false
+
+autoplot(elastic_tuned_2)
+
+```
+
+
+**K Nearest Neighbor:**
+```{r}
+#| label: tbl-knn
+#| tbl-cap: K Nearest Neighbor Tuning Parameters
+#| echo: false
+
+knitr::kable(tibble(
+  Parameter = c("neighbors"),
+  `Tuning Value` = c("1, 10"),
+  Levels = c(9),
+  `KS Best Value` = c(6),
+  `Adv Rec Best Value` = c(5)
+))
+```
+
+```{r}
+#| label: fig-knn-1
+#| fig-cap: KS K Nearest Neighbor
+#| echo: false
+load(here("results/knn_tuned.rda"))
+load(here("results/knn_tuned_2.rda"))
+
+autoplot(knn_tuned)
+
+
+```
+
+```{r}
+#| label: fig-knn-2
+#| fig-cap: Adv Rec K Nearest Neighbor
+#| echo: false
+
+autoplot(knn_tuned_2)
+
+```
+
+**Random Forest:**
+```{r}
+#| label: tbl-rf
+#| tbl-cap: Random Forest Tuning Parameters
+#| echo: false
+
+knitr::kable(tibble(
+  Parameter = c("min_n", "mtry"),
+  `Tuning Value` = c("2, 40", "8, 15"),
+  Levels = c(5, 5),
+  `KS Best Value` = c(11, 2),
+  `Adv Rec Best Value` = c(11, 2)
+))
+```
+
+```{r}
+#| label: fig-rf-1
+#| fig-cap: KS Random Forest
+#| echo: false
+load(here("results/rf_tuned.rda"))
+load(here("results/rf_tuned_2.rda"))
+
+autoplot(rf_tuned)
+
+
+```
+
+```{r}
+#| label: fig-rf-2
+#| fig-cap: Adv Rec Random Forest
+#| echo: false
+
+autoplot(rf_tuned_2)
+
+```
+
