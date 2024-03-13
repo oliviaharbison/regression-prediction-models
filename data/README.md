@@ -7,3 +7,6 @@
 - `music_popularity_codebook.txt`: A codebook for the above datasets.
 - `music_split.rda`: Contains the split data into training and testing sets.
 - `rec_ks.rda`: Kitchen sink recipe.
+- `rec_ks_tree.rda`: Kitchen sink recipe for tree models.
+- `rec_2.rda`: Advanced recipe.
+- `rec_2_tree.rda`: Advanced recipe for tree models.

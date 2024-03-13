@@ -12,3 +12,4 @@
 - `04_lm.R`: Contains the specifications, workflow, any necessary tuning, and fit for the linear model. 
 - `04_rf.R`: Contains the specifications, workflow, any necessary tuning, and fit for the random forest model. 
 - `05_assessment_mets.R`: Contains the assessment metrics for each of the models above.
+- `06_final_fit.R`: Contains the fit and assessment of the best model, selected from the ones above.

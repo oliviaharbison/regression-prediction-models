@@ -20,6 +20,15 @@ reference-location: margin
 citation-location: margin
 ---
 
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+[My Github Repo Link](https://github.com/stat301-2-2024-winter/final-project-2-oliviaharbison.git)
+
+:::
+
 ```{r packages}
 #| echo: false
 library(tidyverse)
@@ -37,13 +46,13 @@ set.seed(80)
 
 The music industry is a fickle beast. Everyone wants to have the next hit and be the next Taylor Swift, but how do we make a star? If we could predict what makes songs or albums popular, we could become the next big thing. This is one of many reasons I chose to explore music popularity for my project.
 
-Although I personally have no interest in becoming a pop star, I love listening to music and I've always been curious as to what makes some songs popular and others not. To dig into this, I found a dataset that contains information scraped from Spotify about individual songs and their popularity[^1]. I will use this data to create a model that predicts how popular music albums are on a scale of 1 to 100.
+Although I personally have no interest in becoming a pop star, I love listening to music and I've always been curious as to what makes some songs popular and others not. To dig into this, I found a dataset that contains information scraped from Spotify about albums/songs and their popularity[^1]. I will use this data to create a model that predicts how popular music albums are on a scale of 1 to 100.
 
 [^1]: This dataset can be found [here](https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction?select=train.csv) on kaggle.
 
 ## Data Overview
 
-The full dataset used here is 160,000 albums from 1917 to 2021, with the marjority having been released in the last 40 years. For computational efficiency, I'm going to use only albums released between 1980 and 2010. Furthermore, I removed all albums containing fewer than three songs, because I feel they should not be classified as albums. Once these changes were made, the dataset was left with 19,184 observations.
+The full dataset used here is 160,000 albums from 1917 to 2021, with the majority having been released in the last 40 years. For computational efficiency, I'm going to use only albums released between 1980 and 2010. Furthermore, I removed all albums containing fewer than three songs, because I feel they should not be classified as albums. Once these changes were made, the dataset was left with 19,184 observations.
 
 The slimmed down dataset had 39 variables, of which 32 were numerical, 6 were categorical, and 1 was the release date. There was no missingness present, but there were some imbalanced variables that were dealt with in the advanced recipe below. An exploratory data analysis was conducted to explore variable imbalance and relationships between variables.
 
@@ -105,7 +114,7 @@ load(here("results/results_plot.rda"))
 results_plot
 ```
 
-As you can see in @fig-preds, most of the model's errors were by predicting albums would be more popular than they were. This is a very understandable error because the people who create music are likely also looking at these data and trying to make songs that fit with the data-driven explanation of popularity. However, it's very difficult to make your song be popular, even if you're following the data trends. I think it's interesting to point out how the highly popular albums were mostly very accurately predicted by the model. This shows that the model was able to parse out patterns and trends related to popular music.
+As you can see in @fig-preds, most of the model's errors were by predicting albums would be more popular than they were. This is a very understandable error because the people who create music are likely also looking at these data and trying to make songs/albums that fit with the data-driven explanation of popularity. However, it's very difficult to make your album be popular, even if you're following the data trends. I think it's interesting to point out how the highly popular albums were mostly very accurately predicted by the model. This shows that the model was able to parse out patterns and trends related to popular music.
 
 
 ## Conclusion

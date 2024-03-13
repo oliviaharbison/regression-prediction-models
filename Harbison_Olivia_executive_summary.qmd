@@ -19,3 +19,80 @@ from: markdown+emoji
 reference-location: margin
 citation-location: margin
 ---
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+[My Github Repo Link](https://github.com/stat301-2-2024-winter/final-project-2-oliviaharbison.git)
+
+:::
+
+
+```{r packages}
+#| echo: false
+library(tidyverse)
+library(tidymodels)
+library(here)
+library(patchwork)
+
+tidymodels_prefer()
+set.seed(80)
+
+# note: all data will be loaded throughout the document / as needed
+```
+## Overview
+
+This report examines music album popularity and the ability to predict how popular albums will be. Music is such a subjective art, it is a complicated question to explore the factors that influence it; however, throughout this project, I have found some success in accurately predicting the popularity of songs with the models discussed below. 
+
+The data used for this project was gathered from Spotify about albums and their popularity from the last 100 years[^1]. I will use a subset of this dataset to attempt to make a regression model that predicts popularity on a scale of 1 to 100, with higher numbers meaning more popular. 
+
+[^1]: This dataset can be found [here](https://www.kaggle.com/datasets/elemento/music-albums-popularity-prediction?select=train.csv) on kaggle.
+
+
+
+## Results
+
+Throughout the project, I tried two different recipes (one basic and one advanced) on 6 different tuned model types for a total of 12 models. This yielded a variety of results. I assessed each models performance based on their RMSE value, with the lowest value being the best performance. We can see the models performances in @tbl-rmse. The basic recipe models are labeled *KS* and the advanced recipe models are labeled *Adv Rec*.
+
+```{r}
+#| label: tbl-rmse
+#| tbl-cap: RMSE Values of all models
+
+load(here("results/rmse_table.rda"))
+
+knitr::kable(rmse_table)
+```
+
+
+As you can see in @tbl-rmse, the KS Random Forest model performed the best, so I then ran it on testing data to see how it performs with data it was not trained on. I was happy to see that it actually performed even better, as you can see in @tbl-final-mets.
+
+
+```{r}
+#| label: tbl-final-mets
+#| tbl-cap: Metrics for Final Model
+#| echo: false
+
+load(here("results/final_mets.rda"))
+
+knitr::kable(final_mets)
+```
+
+With an RMSE value even lower than before, a low MAE, and a high R squared, this model seems to have been fairly successful. The success is even more exciting when we remember how subjective music enjoyment is. 
+
+Finally, we can visually see the model's performance in @fig-preds, which shows the predicted popularity versus the actual popularity for the testing set. You can see that the model's biggest issue was predicting albums would be more popular than they ultimately were. I provide a full explanation for this in the final report.
+
+
+```{r}
+#| label: fig-preds
+#| fig-cap: Predicted vs actual popularity
+#| echo: false
+
+load(here("results/results_plot.rda"))
+results_plot
+```
+
+
+## Conclusions
+
+Although art is subjective and difficult to boil down into numbers, there still exist interesting patterns that can be found through thorough data analysis and modeling. I think this area deserves further research, particularly into the psychology of music enjoyment and how songs become universally adored. Is it more about the song itself or the marketing of it? This is something I couldn't explore here but I would love to dig into at a later date!
